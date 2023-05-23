@@ -8,7 +8,8 @@ import Avatar from '@mui/material/Avatar';
 import {deepOrange, deepPurple} from '@mui/material/colors';
 import Popover from '@mui/material/Popover';
 import LogoutIcon from '@mui/icons-material/Logout';
-export const Apple = () => {
+import { Margin } from "@mui/icons-material";
+export const Login = () => {
     const [name,setName] = useState("Dev");
     const [email,setEmail] = useState("devnkheradiya@gmail.com");
     const [open,setOpen] = useState(false); 
@@ -94,11 +95,13 @@ export const Apple = () => {
             >
                 <div
                 style={{
-                    padding:5
+                    padding:5, 
+                    Margin:5,
+                    alignItems: 'center'
                 }}
                 >
-                    <h3>Dev Kheradiya</h3>
-                    <LogoutIcon onClick={onHomePageButtonClick}/>
+                    <h3>Dev Kheradiya <LogoutIcon onClick={onHomePageButtonClick}/></h3>
+                    
                 </div>
             </Popover>
         </div>
