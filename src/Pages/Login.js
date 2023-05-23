@@ -8,7 +8,6 @@ import Avatar from '@mui/material/Avatar';
 import {deepOrange, deepPurple} from '@mui/material/colors';
 import Popover from '@mui/material/Popover';
 import LogoutIcon from '@mui/icons-material/Logout';
-import "./login.css";
 export const Apple = () => {
     const [name,setName] = useState("Dev");
     const [email,setEmail] = useState("devnkheradiya@gmail.com");
@@ -45,6 +44,7 @@ export const Apple = () => {
                 style={{
                     display: 'flex',
                     justifyContent: 'flex-end',
+                    padding:5,
                     alignItems: 'center',
                     columnGap: 5
                 }}>
