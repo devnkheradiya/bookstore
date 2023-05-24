@@ -64,58 +64,7 @@ export const Registration = () => {
     };
     return ( 
         <>
-        <div div style={{
-            padding: 5
-        }}>
-            {/* <h1>Apple Page</h1> */}
-            <div
-                style={{
-                display: 'flex',
-                justifyContent: 'flex-end'
-            }}
-            >
-                <div onClick={handleClick}
-                style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    padding:5,
-                    alignItems: 'center',
-                    columnGap: 5
-                }}>
-                    <Avatar sx={{bgcolor: "#E76161"}}>DK</Avatar>
-                </div>
-                
-            </div>
-            <Popover
-            //     anchorReference="anchorPosition"
-            //     anchorPosition={{
-            //     top: 200,
-            //     left: 400
-            // }}
-                open={open}
-                anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left'
-            }}
-                transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left'
-            }}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            >
-                <div
-                style={{
-                    padding:5, 
-                    Margin:5,
-                    alignItems: 'center'
-                }}
-                >
-                    {/* <Button variant="contained" className="button" onClick={onHomePageButtonClick}>LogOut</Button> */}
-                    <h3>LOGOUT <LogoutIcon onClick={onHomePageButtonClick}/>  </h3>
-                </div>
-            </Popover>
-        </div>
+        
          <div
          style={{
          padding: 10,

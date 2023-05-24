@@ -10,18 +10,28 @@ import {Login} from './Pages/Login';
 import {NotFound} from './Pages/NotFound';
 import {ThemeProvider} from '@emotion/react';
 import {theme} from './styles';
+import HomeIcon from '@mui/icons-material/Home';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import LoginIcon from '@mui/icons-material/Login';
+
 const App = () => {
     return ( 
     <> 
     <ThemeProvider theme={theme}>
         <BrowserRouter>
-            <div className='nav'>
+            <div className='nav' style={{
+                display:'flex',
+                alignItems: 'center'
+            }}>
                 <Link to='/' style={{
                     marginLeft: 5,
                     textDecoration:'none',
                     fontSize:20,
-                    color:'#E76161'
+                    color:'#E76161',
+                    display:'flex',
+                    alignItems: 'center'
                 }}>
+                    <HomeIcon/>
                     Home</Link>
                 <Link
                     to='/Registration'
@@ -29,8 +39,11 @@ const App = () => {
                     marginLeft: 10,
                     textDecoration:'none',
                     fontSize:20,
-                    color:'#E76161'
+                    color:'#E76161',
+                    display:'flex',
+                    alignItems: 'center'
                 }}>
+                    <HowToRegIcon/>
                     Registration</Link>
                 <Link
                     to='/Login'
@@ -38,8 +51,11 @@ const App = () => {
                     marginLeft: 10,
                     textDecoration:'none',
                     fontSize:20,
-                    color:'#E76161'
+                    color:'#E76161',
+                    display:'flex',
+                    alignItems: 'center'
                 }}>
+                    <LoginIcon/>
                     Login</Link>
                 <Link
                     to='/applet'

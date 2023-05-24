@@ -29,7 +29,7 @@ export const Login = () => {
 
     const initialValues ={
         email :"",
-        Password :"",
+        password :"",
 
     }
 
@@ -61,58 +61,7 @@ export const Login = () => {
     };
     return ( 
         <>
-        <div div style={{
-            padding: 5
-        }}>
-            {/* <h1>Apple Page</h1> */}
-            <div
-                style={{
-                display: 'flex',
-                justifyContent: 'flex-end'
-            }}
-            >
-                <div onClick={handleClick}
-                style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    padding:5,
-                    alignItems: 'center',
-                    columnGap: 5
-                }}>
-                    <Avatar sx={{bgcolor: "#E76161"}}>DK</Avatar>
-                </div>
-                
-            </div>
-            <Popover
-            //     anchorReference="anchorPosition"
-            //     anchorPosition={{
-            //     top: 200,
-            //     left: 400
-            // }}
-                open={open}
-                anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left'
-            }}
-                transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left'
-            }}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            >
-                <div
-                style={{
-                    padding:5, 
-                    Margin:5,
-                    alignItems: 'center'
-                }}
-                >
-                    {/* <Button variant="contained" className="button" onClick={onHomePageButtonClick}>LogOut</Button> */}
-                    <h3>LOGOUT <LogoutIcon onClick={onHomePageButtonClick}/>  </h3>
-                </div>
-            </Popover>
-        </div>
+    
          <div
          style={{
          padding: 10,
@@ -137,6 +86,7 @@ export const Login = () => {
                     
                   <div style={{
                     display:"flex",
+                    position:'relative',
                     justifyContent: 'center',
                     alignItems: 'center',
                     flexDirection:'column',
@@ -146,6 +96,7 @@ export const Login = () => {
                 <div 
                     style={{
                         display:'flex',
+                        
                         justifyContent: 'center',
                         alignItems: 'center'
                     }}>
@@ -158,13 +109,14 @@ export const Login = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     style={{
-                        width:820, 
-                        margin:10 
+                        width:820,  
+                        margin:10,
                     }}
                     />
                     {errors.email && touched.email && 
                     <span style={{
                      color:'red',
+                     position:'relative',
                      fontSize:15,
                      marginBottom:5
                      }}>{errors.email}</span>}
@@ -180,7 +132,6 @@ export const Login = () => {
                     onBlur={handleBlur}
                     style={{
                         width:820,
-                        
                     }}
                     />
                     {errors.password && touched.password && 
