@@ -42,12 +42,12 @@ export const Registration = () => {
       });
 
     const onFormSubmit = (values,{setSubmitting}) => {
-        console.log("On Form Submit:",values);
+        console.log("Registration:",values);
         setTimeout(() => {
          alert(JSON.stringify(values, null, 2));
          setSubmitting(false);
        }, 400);  
-        alert("Form Submitted Successfully")
+        alert("Register Successfully")
     };
     const onHomePageButtonClick = () => {
         Navigate("/");
