@@ -32,7 +32,7 @@ const App = () => {
                 <Link
                     to='/applet'
                     style={{
-                    marginLeft: 15,
+                    marginLeft: 12,
                     textDecoration:'none',
                     fontSize:20
                 }}>
