@@ -46,19 +46,19 @@ export const Login = () => {
        }, 400);  
         alert("Login Successfully")
     };
-    const onHomePageButtonClick = () => {
-        Navigate("/");
-        console.log("Button clicked");
-    };
-    const handleClick = (event) => {
-        console.log(123);
-        setAnchorEl(event.currentTarget);
-        setOpen(true);
-    };
-    const handleClose = (event) => {
-        setAnchorEl(null);
-        setOpen(false);
-    };
+    // const onHomePageButtonClick = () => {
+    //     Navigate("/");
+    //     console.log("Button clicked");
+    // };
+    // const handleClick = (event) => {
+    //     console.log(123);
+    //     setAnchorEl(event.currentTarget);
+    //     setOpen(true);
+    // };
+    // const handleClose = (event) => {
+    //     setAnchorEl(null);
+    //     setOpen(false);
+    // };
     return ( 
         <>
     
