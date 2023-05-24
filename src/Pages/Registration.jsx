@@ -12,7 +12,7 @@ import { Margin } from "@mui/icons-material";
 import {Formik} from 'formik';
 import * as Yup from "yup";
 
-export const Login = () => {
+export const Registration = () => {
     const [name,setName] = useState("Dev");
     const [email,setEmail] = useState("devnkheradiya@gmail.com");
     const [open,setOpen] = useState(false); 
@@ -28,12 +28,15 @@ export const Login = () => {
     // },[]);
 
     const initialValues ={
-        email :"",
-        Password :"",
+        Firstname :"",
+        Lastname :"",
+        email :""
 
     }
 
     const validationSchema=Yup.object().shape({
+        "fname":Yup.string().min(3,"Please Make Sure you have Entered your name Atleast 3 characters long"),
+        "lname":Yup.string().min(3,"Please Make Sure you have Entered your name Atleast 3 characters long"),
         "email":Yup.string().email("Please Enter Valid Email"),
         "password":Yup.string().min(10,"Password length must be 10 or greater than 10"),
       });
@@ -131,7 +134,7 @@ export const Login = () => {
                   <form onSubmit={handleSubmit}>
                     <div
                     style={{textAlign: 'center', fontFamily:'Helvetica', color: '#E76161'}}>
-                    <h1>Login</h1>
+                    <h1>Registration</h1>
                     <hr style={{width:400}}/>
                     </div>
                     
@@ -142,8 +145,54 @@ export const Login = () => {
                     flexDirection:'column',
                     marginBottom:5,
                     rowGap:10
-                }}> 
+                }}>
                 <div 
+                style={{
+                    display:"flex",
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }} >
+                    
+                <TextField
+                    type="text"
+                    // value={name}
+                    name="fname"
+                    label="First Name"
+                    color="secondary"
+                    onChange={handleChange}
+                    onBlur={handleBlur} 
+                    style={{
+                        width:400,
+                        margin:10
+                        }}
+                    />
+                    {errors.fname && touched.fname && 
+                    <span style={{
+                     color:'red',
+                     fontSize:15,
+                     marginBottom:5
+                     }}>{errors.fname}</span>}
+                <TextField
+                    type="text"
+                    // value={name}
+                    name="lname"
+                    label="Last Name"
+                    color="secondary"
+                    onChange={handleChange}
+                    onBlur={handleBlur} 
+                    style={{
+                        width:400,
+                        margin:10
+                        }}
+                    />
+                    {errors.lname && touched.lname && 
+                    <span style={{
+                     color:'red',
+                     fontSize:15,
+                     marginBottom:5
+                     }}>{errors.lname}</span>}
+                    </div>
+                    <div 
                     style={{
                         display:'flex',
                         justifyContent: 'center',
@@ -158,8 +207,8 @@ export const Login = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     style={{
-                        width:820, 
-                        margin:10 
+                        width:820,
+                        
                     }}
                     />
                     {errors.email && touched.email && 
@@ -168,7 +217,7 @@ export const Login = () => {
                      fontSize:15,
                      marginBottom:5
                      }}>{errors.email}</span>}
-                
+                    
                     </div>
                     <TextField
                     type="text"
