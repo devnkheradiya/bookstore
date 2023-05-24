@@ -112,7 +112,7 @@ export const Login = () => {
                         width:820,  
                         margin:10,
                     }}
-                    />
+                    required/>
                     {errors.email && touched.email && 
                     <span style={{
                      color:'red',
@@ -133,7 +133,7 @@ export const Login = () => {
                     style={{
                         width:820,
                     }}
-                    />
+                    required/>
                     {errors.password && touched.password && 
                     <span style={{
                      color:'red',

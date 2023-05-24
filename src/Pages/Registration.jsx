@@ -114,7 +114,7 @@ export const Registration = () => {
                         width:400,
                         margin:10
                         }}
-                    />
+                    required/>
                     {errors.fname && touched.fname && 
                     <span style={{
                      color:'red',
@@ -133,7 +133,7 @@ export const Registration = () => {
                         width:400,
                         margin:10
                         }}
-                    />
+                    required/>
                     {errors.lname && touched.lname && 
                     <span style={{
                      color:'red',
@@ -159,7 +159,7 @@ export const Registration = () => {
                         width:820,
                         
                     }}
-                    />
+                    required/>
                     {errors.email && touched.email && 
                     <span style={{
                      color:'red',
@@ -180,7 +180,7 @@ export const Registration = () => {
                         width:820,
                         
                     }}
-                    />
+                    required/>
                     {errors.password && touched.password && 
                     <span style={{
                      color:'red',
