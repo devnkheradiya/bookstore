@@ -11,6 +11,9 @@ import TextField from '@mui/material/TextField';
 // import { Margin } from "@mui/icons-material";
 import {Formik} from 'formik';
 import * as Yup from "yup";
+import axios from 'axios';
+import { toast } from "react-toastify";
+
 
 export const Registration = () => {
     const [name,setName] = useState("Dev");
@@ -18,14 +21,13 @@ export const Registration = () => {
     const [open,setOpen] = useState(false); 
     const Navigate = useNavigate()
     const [anchorEl, setAnchorEl] = useState(null);
-
-    // useEffect(()=>{
-    //     // console.log("The new value of Name: ", name);
-
-    //     // return ()=>{
-    //     //     console.log("The old value of Name: ", name)
-    //     // };
-    // },[]);
+    const [user,setUser]=useState([]);
+    useEffect(()=>{
+       axios.get("https://jsonplaceholder.typicode.com/posts").then((res)=>{
+        console.log(res.data);
+        setUser(res.data);
+       })
+    },[]);
 
     const initialValues ={
         Firstname :"",
@@ -35,19 +37,53 @@ export const Registration = () => {
     }
 
     const validationSchema=Yup.object().shape({
-        "fname":Yup.string().min(3,"Please Make Sure you have Entered your name Atleast 3 characters long"),
-        "lname":Yup.string().min(3,"Please Make Sure you have Entered your name Atleast 3 characters long"),
-        "email":Yup.string().email("Please Enter Valid Email"),
-        "password":Yup.string().min(10,"Password length must be 10 or greater than 10"),
+        "fname":Yup.string().min(3,"Please Make Sure you have Entered your name Atleast 3 characters long").required("please enter your first name"),
+        "lname":Yup.string().min(3,"Please Make Sure you have Entered your name Atleast 3 characters long").required("please enter your last name"),
+        "email":Yup.string().email("Please Enter Valid Email").required("please enter your email"),
+        "password":Yup.string().min(10,"Password length must be 10 or greater than 10").required("please enter the password"),
       });
 
-    const onFormSubmit = (values,{setSubmitting}) => {
-        console.log("Registration:",values);
-        setTimeout(() => {
-         alert(JSON.stringify(values, null, 2));
-         setSubmitting(false);
-       }, 400);  
-        alert("Register Successfully")
+    const onFormSubmit = (values) => {
+        console.log(values);
+        const requestData ={
+            userName:values.fname,
+            useremail:values.email,
+        }
+        axios.post("https://jsonplaceholder.typicode.com/posts",requestData).then((res)=>{
+            if(res.statusCode === 201)
+            {
+                console.log(res.data.id);
+                // toast("API call successfull")
+                toast.success('API Call successfully', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+            }
+        });
+        axios.delete("https://jsonplaceholder.typicode.com/posts/1",requestData).then((res)=>{
+            if(res.statusCode === 200)
+            {
+                console.log(res.data.id);
+                // toast("API call successfull")
+                toast.success('API Data Deleted successfully', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    });
+            }
+        });
+        
     };
     const onHomePageButtonClick = () => {
         Navigate("/");
@@ -69,7 +105,7 @@ export const Registration = () => {
          style={{
          padding: 10,
          rowGap: 10,
-         display: 'flex',
+        //  display: 'flex',
          flexDirection: 'column'
      }}>
          <Formik 
@@ -95,12 +131,7 @@ export const Registration = () => {
                     marginBottom:5,
                     rowGap:10
                 }}>
-                <div 
-                style={{
-                    display:"flex",
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }} >
+              
                     
                 <TextField
                     type="text"
@@ -111,16 +142,17 @@ export const Registration = () => {
                     onChange={handleChange}
                     onBlur={handleBlur} 
                     style={{
-                        width:400,
-                        margin:10
+                        width:820,
+                        margin:10,
                         }}
-                    required/>
+                    />
                     {errors.fname && touched.fname && 
                     <span style={{
                      color:'red',
                      fontSize:15,
                      marginBottom:5
                      }}>{errors.fname}</span>}
+                     
                 <TextField
                     type="text"
                     // value={name}
@@ -130,23 +162,18 @@ export const Registration = () => {
                     onChange={handleChange}
                     onBlur={handleBlur} 
                     style={{
-                        width:400,
-                        margin:10
+                        width:820,
+                        margin:10,
                         }}
-                    required/>
+                    />
                     {errors.lname && touched.lname && 
                     <span style={{
                      color:'red',
                      fontSize:15,
                      marginBottom:5
                      }}>{errors.lname}</span>}
-                    </div>
-                    <div 
-                    style={{
-                        display:'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
+                    
+                    
                     <TextField
                     type="email"
                     // value={email}
@@ -157,17 +184,18 @@ export const Registration = () => {
                     onBlur={handleBlur}
                     style={{
                         width:820,
-                        
+                        margin:10
                     }}
-                    required/>
+                    />
                     {errors.email && touched.email && 
                     <span style={{
                      color:'red',
                      fontSize:15,
-                     marginBottom:5
+                    //  padding:10,
+                    //  marginBottom:5
                      }}>{errors.email}</span>}
                     
-                    </div>
+                    
                     <TextField
                     type="text"
                     // value={email}
@@ -178,9 +206,10 @@ export const Registration = () => {
                     onBlur={handleBlur}
                     style={{
                         width:820,
+                        margin:10,
                         
                     }}
-                    required/>
+                    />
                     {errors.password && touched.password && 
                     <span style={{
                      color:'red',

@@ -13,8 +13,11 @@ import {theme} from './styles';
 import HomeIcon from '@mui/icons-material/Home';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import LoginIcon from '@mui/icons-material/Login';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const App = () => {
+
+const App = () => { 
     return ( 
     <> 
     <ThemeProvider theme={theme}>

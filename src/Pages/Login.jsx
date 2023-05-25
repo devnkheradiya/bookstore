@@ -34,8 +34,8 @@ export const Login = () => {
     }
 
     const validationSchema=Yup.object().shape({
-        "email":Yup.string().email("Please Enter Valid Email"),
-        "password":Yup.string().min(10,"Password length must be 10 or greater than 10"),
+        "email":Yup.string().email("Please Enter Valid Email").required("enter a valid email"),
+        "password":Yup.string().min(10,"Password length must be 10 or greater than 10").required("enter valid password"),
       });
 
     const onFormSubmit = (values,{setSubmitting}) => {
@@ -93,13 +93,6 @@ export const Login = () => {
                     marginBottom:5,
                     rowGap:10
                 }}> 
-                <div 
-                    style={{
-                        display:'flex',
-                        
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
                     <TextField
                     type="email"
                     // value={email}
@@ -112,7 +105,7 @@ export const Login = () => {
                         width:820,  
                         margin:10,
                     }}
-                    required/>
+                    />
                     {errors.email && touched.email && 
                     <span style={{
                      color:'red',
@@ -121,7 +114,7 @@ export const Login = () => {
                      marginBottom:5
                      }}>{errors.email}</span>}
                 
-                    </div>
+                    
                     <TextField
                     type="text"
                     // value={email}
@@ -132,8 +125,9 @@ export const Login = () => {
                     onBlur={handleBlur}
                     style={{
                         width:820,
+                        margin:10
                     }}
-                    required/>
+                    />
                     {errors.password && touched.password && 
                     <span style={{
                      color:'red',
