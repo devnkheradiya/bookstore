@@ -1,11 +1,11 @@
-import logo from './images/logo.svg';
+// import logo from './images/logo.svg';
 // import Sitelogo from '../public/logo192.png';
 import './App.css';
 import {Routes, Route, Link, BrowserRouter} from 'react-router-dom';
 // import { globalStyles } from './Components/constants';
 import {HomePage} from './Pages/HomePage';
-import {Apple} from './Pages/Registration';
-import Registration from './Pages/Registration1';
+import {Apple} from './Pages/OlRegistration';
+import Registration from './Pages/Registration';
 import Login from './Pages/Login';
 import {NotFound} from './Pages/NotFound';
 import {ThemeProvider} from '@emotion/react';
@@ -15,8 +15,8 @@ import HowToRegIcon from '@mui/icons-material/HowToReg';
 import LoginIcon from '@mui/icons-material/Login';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Navbar from './Pages/Header'
-import Footer from './Pages/Footer';
+import Navbar from './Components/Header/Header'
+import Footer from './Components/Footer/Footer';
 
 
 const App = () => { 

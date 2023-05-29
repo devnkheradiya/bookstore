@@ -1,243 +1,333 @@
-import {useNavigate} from "react-router-dom";
+import React from 'react';
+import {useNavigate} from 'react-router-dom';
+import {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
-// import {Navigate} from 'react-router-dom';
-import {useEffect, useState} from "react";
-// import Input from '@mui/material/Input';
-import TextField from '@mui/material/TextField';
-// import Avatar from '@mui/material/Avatar';
-// import {deepOrange, deepPurple} from '@mui/material/colors';
-// import Popover from '@mui/material/Popover';
-// import LogoutIcon from '@mui/icons-material/Logout';
-// import { Margin } from "@mui/icons-material";
+import {TextField} from '@mui/material';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import {Formik} from 'formik';
-import * as Yup from "yup";
+import * as Yup from 'yup';
 import axios from 'axios';
-import { toast } from "react-toastify";
+import {toast} from 'react-toastify';
+import './css/registration.css';
 
+const Registration1 = () => {
+	// const [name, setName] = useState("Dhruv Patel");
+	// const [email, setEmail] = useState("dp@gmail.com");
+	const [role, setRole] = useState('');
+	// const [open, setOpen] = useState(false);
+	// const [anchorEl, setAnchorEl] = useState(null);
+	const Navigate = useNavigate('');
 
-export const Registration = () => {
-    const [name,setName] = useState("Dev");
-    const [email,setEmail] = useState("devnkheradiya@gmail.com");
-    const [open,setOpen] = useState(false); 
-    const Navigate = useNavigate()
-    const [anchorEl, setAnchorEl] = useState(null);
-    const [user,setUser]=useState([]);
+	const initialValues = {
+		fname: '',
+		lname: '',
+		email: '',
+		password: '',
+	};
+	const validationSchema = Yup.object().shape({
+		fname: Yup.string()
+			.min(3, 'First Name Must be 3 characters long...')
+			.required('Please Enter Your First Name'),
+		lname: Yup.string()
+			.min(3, 'Last Name must be 3 characters long...')
+			.required('Please Enter Your Last Name'),
+		email: Yup.string()
+			.email('Please Enter Valid Email')
+			.required('please Enter your Email ID'),
+		password: Yup.string()
+			.min(8, 'Password Must be 8 Characters Long...')
+			.required('Please Enter Your Password'),
+		cpassword: Yup.string()
+			.required('Please Enter Confirm Password')
+			.oneOf([Yup.ref('password'), null], 'Passwords must match'),
+	});
 
-    useEffect(() => {
-        axios.get("https://jsonplaceholder.typicode.com/posts").then((res) => {
-          console.log("User detail: ", res.data);
-          setUser(res.data);
-        });
-      }, []);
+	const onFormSubmit = async (values) => {
+		console.log('On the form submitted', values);
 
-    const initialValues ={
-        fname :"",
-        lname :"",
-        email :"",
-        password:""
+		const requestData = {
+			fname: values.fname,
+			lname: values.lname,
+			email: values.email,
+			password: values.password,
+		};
 
-    }
+		// call API to post submit the form
+		const res = await axios.post(
+			'https://jsonplaceholder.typicode.com/posts',
+			requestData
+		);
 
-    const validationSchema=Yup.object().shape({
-        "fname":Yup.string().min(3,"Please Make Sure you have Entered your name Atleast 3 characters long").required("please enter your first name"),
-        "lname":Yup.string().min(3,"Please Make Sure you have Entered your name Atleast 3 characters long").required("please enter your last name"),
-        "email":Yup.string().email("Please Enter Valid Email").required("please enter your email"),
-        "password":Yup.string().min(10,"Password length must be 10 or greater than 10").required("please enter the password"),
-      });
+		if (res.status === 201) {
+			console.log(res.data.id);
+			toast.success('API call is completted successfully', {
+				position: 'top-right',
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'light',
+			});
+		}
+	};
+	// const NavigateHome = () => {
+	//     Navigate('/');
+	//     // alert('The login button is clicked...')
+	//     console.log("Name:", name);
+	//     console.log("Email:", email);
+	// }
+	// const handleClick = (event) => {
+	//     setAnchorEl(event.currentTarget);
+	//     setOpen(true);
+	// };
 
-    const onFormSubmit = async (values) => {
-    console.log("On the form submitted", values);
+	// const handleClose = () => {
+	//     setAnchorEl(null);
+	//     setOpen(false);
+	// };
+	const breadcrumbs = [
+		<Link
+			color="inherit"
+			href="/"
+			style={{
+				textDecoration: 'none',
+				fontSize: 18,
+			}}
+			// onClick={handleClick}
+		>
+			Home
+		</Link>,
+		<Typography
+			className="center "
+			key="3"
+			color="text.primary"
+			style={{
+				textDecoration: 'none',
+				fontSize: 18,
+				color: '#f14d54',
+			}}
+		>
+			Create an Account
+		</Typography>,
+	];
+	return (
+		<>
+			<div style={{padding: 5}}></div>
+			<div>
+				<div className="center ">
+					<Breadcrumbs
+						style={{
+							display: 'flex',
+							justifyContent: 'center',
+							alignItems: 'center',
+							paddingTop: '20px',
+						}}
+						separator={<NavigateNextIcon fontSize="small" />}
+						aria-label="breadcrumb"
+					>
+						{breadcrumbs}
+					</Breadcrumbs>
+				</div>
+				<div>
+					<div className="center">
+						<h1 className="loginheader">Login or Create an Account</h1>
+						<hr className="line" style={{bgcolor: '#f14d54'}} />
+					</div>
+				</div>
+				<div
+					style={{
+						textAlign: 'left',
+					}}
+				>
+					<h3 style={{}}>Personal Information</h3>
+					<hr className="hr1" style={{opacity: '0.3'}} />
+					<p className="paraStyle">
+						Please enter the following information to create your account.
+					</p>
+					<Formik
+						initialValues={initialValues}
+						validationSchema={validationSchema}
+						onSubmit={onFormSubmit}
+					>
+						{({
+							value,
+							errors,
+							touched,
+							isSubmitting,
+							handleChange,
+							handleBlur,
+							handleSubmit,
+						}) => {
+							return (
+								<form onSubmit={handleSubmit}>
+									<div className="side-by-side">
+										<div>
+											<div className="label1">First Name</div>
+											<TextField
+												type="text"
+												placeholder="FirstName"
+												name="fname"
+												style={{width: '500px'}}
+												onBlur={handleBlur}
+												onChange={handleChange}
+											/>
+											{errors.fname && touched.fname && (
+												<div
+													style={{
+														color: 'red',
+														fontSize: 15,
+														marginBottom: 5,
+													}}
+												>
+													{errors.fname}
+												</div>
+											)}
+										</div>
+										<div>
+											<div className="label">Last Name </div>
+											<TextField
+												type="text"
+												placeholder="LastName"
+												name="lname"
+												style={{width: '500px', paddingLeft: 10}}
+												onBlur={handleBlur}
+												onChange={handleChange}
+											/>
+											{errors.lname && touched.lname && (
+												<div
+													style={{
+														color: 'red',
+														fontSize: 15,
+														marginBottom: 5,
+													}}
+												>
+													{errors.lname}
+												</div>
+											)}
+										</div>
+									</div>
 
-    const requestData = {
-      userName: values.name,
-      userEmail: values.email,
-    };
+									<div style={{padding: 5}}></div>
+									<div className="side-by-side">
+										<div>
+											<div className="label1">Email </div>
+											<TextField
+												type="email"
+												placeholder="Email"
+												style={{width: '500px'}}
+												onChange={handleChange}
+												name="email"
+												onBlur={handleBlur}
+											/>
+											{errors.email && touched.email && (
+												<div
+													style={{
+														color: 'red',
+														fontSize: 15,
+														marginBottom: 5,
+													}}
+												>
+													{errors.email}
+												</div>
+											)}
+										</div>
 
-    // call API to post submit the form
-    const res = await axios.post("https://jsonplaceholder.typicode.com/posts", requestData);
+										<div>
+											<div className="label">Role</div>
+											<Select
+												name="role"
+												value={role}
+												style={{width: '500px', marginLeft: 10}}
+												onChange={(event) => {
+													setRole(event.target.value);
+												}}
+											>
+												<MenuItem value=""></MenuItem>
+												<MenuItem value={'Buyer'}>Buyer</MenuItem>
+												<MenuItem value={'Seller'}>Seller</MenuItem>
+											</Select>
+										</div>
+									</div>
 
-    if (res.status === 201) {
-      console.log(res.data.id);
-      toast.success("API call is completted successfully", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
-    }
-
-    axios.delete("https://jsonplaceholder.typicode.com/posts/1").then((res) => {
-      if (res.status === 200) {
-        toast.success("Data is deleted successfully", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      }
-    });
-  };
-    const onHomePageButtonClick = () => {
-        Navigate("/");
-        console.log("Button clicked");
-    };
-    const handleClick = (event) => {
-        console.log(123);
-        setAnchorEl(event.currentTarget);
-        setOpen(true);
-    };
-    const handleClose = (event) => {
-        setAnchorEl(null);
-        setOpen(false);
-    };
-    return ( 
-        <>
-        
-         <div
-         style={{
-         padding: 10,
-         rowGap: 10,
-        //  display: 'flex',
-         flexDirection: 'column'
-     }}>
-         <Formik 
-         initialValues={initialValues}
-         validationSchema={validationSchema}
-         onSubmit={onFormSubmit}
-         
-         >
-             {({values, errors,touched, isSubmitting, handleChange,handleBlur,handleSubmit})=>{
-                return(
-                  <form onSubmit={handleSubmit}>
-                    <div
-                    style={{textAlign: 'center', fontFamily:'Helvetica', color: '#E76161'}}>
-                    <h1>Registration</h1>
-                    <hr style={{width:400}}/>
-                    </div>
-                    
-                  <div style={{
-                    display:"flex",
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    flexDirection:'column',
-                    marginBottom:5,
-                    rowGap:10
-                }}>
-              
-                    
-                <TextField
-                    type="text"
-                    // value={name}
-                    name="fname"
-                    label="First Name"
-                    color="secondary"
-                    onChange={handleChange}
-                    onBlur={handleBlur} 
-                    style={{
-                        width:820,
-                        margin:10,
-                        }}
-                    />
-                    {errors.fname && touched.fname && 
-                    <span style={{
-                     color:'red',
-                     fontSize:15,
-                     marginBottom:5
-                     }}>{errors.fname}</span>}
-                     
-                <TextField
-                    type="text"
-                    // value={name}
-                    name="lname"
-                    label="Last Name"
-                    color="secondary"
-                    onChange={handleChange}
-                    onBlur={handleBlur} 
-                    style={{
-                        width:820,
-                        margin:10,
-                        }}
-                    />
-                    {errors.lname && touched.lname && 
-                    <span style={{
-                     color:'red',
-                     fontSize:15,
-                     marginBottom:5
-                     }}>{errors.lname}</span>}
-                    
-                    
-                    <TextField
-                    type="email"
-                    // value={email}
-                    name="email"
-                    label="Email"
-                    color="secondary"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    style={{
-                        width:820,
-                        margin:10
-                    }}
-                    />
-                    {errors.email && touched.email && 
-                    <span style={{
-                     color:'red',
-                     fontSize:15,
-                    //  padding:10,
-                    //  marginBottom:5
-                     }}>{errors.email}</span>}
-                    
-                    
-                    <TextField
-                    type="text"
-                    // value={email}
-                    name="password"
-                    label="Password"
-                    color="secondary"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    style={{
-                        width:820,
-                        margin:10,
-                        
-                    }}
-                    />
-                    {errors.password && touched.password && 
-                    <span style={{
-                     color:'red',
-                     fontSize:15,
-                     marginBottom:5
-                     }}>{errors.password}</span>}
-                <Button variant="contained" className="button" type="submit"
-                style={{
-                    width:150,
-                    padding:10,
-                    margin:10
-                }}
-                > Submit</Button>
-                </div>
-                </form>
-                )
-             }}
-        
-         </Formik>
-     </div>
-     <div>
-        {user.map((item) => (
-          <div key={item.id}>
-            <h3>{item.title}</h3>
-            <span>{item.body}</span>
-          </div>
-        ))}
-      </div>
-     </>
-    );
+									<div
+										style={{
+											display: 'flex',
+											flexDirection: 'column',
+											marginBottom: 5,
+											rowGap: 10,
+										}}
+									>
+										<div>
+											<h3>Login Information</h3>
+											<hr className="hr1" style={{opacity: '0.3'}} />
+										</div>
+										<div className="side-by-side">
+											<div>
+												<div className="label1">Password</div>
+												<TextField
+													type="password"
+													placeholder="Password"
+													style={{width: '500px'}}
+													onChange={handleChange}
+													name="password"
+													onBlur={handleBlur}
+												/>
+												{errors.password && touched.password && (
+													<div
+														style={{
+															color: 'red',
+															fontSize: 15,
+															marginBottom: 5,
+														}}
+													>
+														{errors.password}
+													</div>
+												)}
+											</div>
+											<div>
+												<div className="label">Confirm Password</div>
+												<TextField
+													type="password"
+													placeholder="Confirm Password"
+													onChange={handleChange}
+													style={{width: '500px', paddingLeft: 10}}
+													name="cpassword"
+													onBlur={handleBlur}
+												/>
+												{errors.cpassword && touched.cpassword && (
+													<div
+														style={{
+															color: 'red',
+															fontSize: 15,
+															marginBottom: 5,
+														}}
+													>
+														{errors.cpassword}
+													</div>
+												)}
+											</div>
+										</div>
+									</div>
+									<div className="btn" style={{marginBottom: '20px'}}>
+										<Button variant="contained" type="submit">
+											Register
+										</Button>
+									</div>
+								</form>
+							);
+						}}
+					</Formik>
+				</div>
+			</div>
+		</>
+	);
 };
+
+export default Registration1;
