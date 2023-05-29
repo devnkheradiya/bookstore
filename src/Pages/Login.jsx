@@ -41,6 +41,30 @@ const Login = () => {
 		}, 400);
 		alert('Form Submitted Successfully');
 	};
+	// const onFormSubmit = (values, { setSubmitting }) => {
+	// 	fetch('https://book-e-sell-node-api.vercel.app/api/user/login', {
+	// 	  method: 'POST',
+	// 	  headers: {
+	// 		'Content-Type': 'application/json',
+	// 	  },
+	// 	  body: JSON.stringify(values),
+	// 	})
+	// 	  .then((response) => response.json())
+	// 	  .then((data) => {
+	// 		
+	// 		console.log(data);
+	// 		if (data.success) {
+	// 		  Navigate('/');
+	// 		}
+	// 	  })
+	// 	  .catch((error) => {
+	// 		console.error(error);
+	// 	  })
+	// 	  .finally(() => {
+	// 		setSubmitting(false);
+	// 	  });
+	//   };
+	  
 	const NavigateHome = () => {
 		Navigate('/');
 		// alert('The login button is clicked...')

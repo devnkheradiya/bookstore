@@ -26,6 +26,7 @@ const Registration1 = () => {
 	const initialValues = {
 		fname: '',
 		lname: '',
+		role:'',
 		email: '',
 		password: '',
 	};
