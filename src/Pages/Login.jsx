@@ -3,6 +3,8 @@ import {useNavigate} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import Button from '@mui/material/Button';
 import {TextField} from '@mui/material';
+import axios from 'axios';
+import {toast} from 'react-toastify';
 // import { Avatar } from "@mui/material";
 // import { Popover } from "@mui/material";
 // import LogoutIcon from "@mui/icons-material/Logout";
@@ -33,13 +35,43 @@ const Login = () => {
 			.min(8, 'Password Must be a 8 Characters Long')
 			.required('Please Enter Password'),
 	});
-	const onFormSubmit = (values, {setSubmitting}) => {
-		console.log('On Form Submit:', values);
-		setTimeout(() => {
-			alert(JSON.stringify(values, null, 2));
-			setSubmitting(false);
-		}, 400);
-		alert('Form Submitted Successfully');
+	// const onFormSubmit = (values, {setSubmitting}) => {
+	// 	console.log('On Form Submit:', values);
+	// 	setTimeout(() => {
+	// 		alert(JSON.stringify(values, null, 2));
+	// 		setSubmitting(false);
+	// 	}, 400);
+	// 	alert('Form Submitted Successfully');
+	// };
+	const onFormSubmit = async (values) => {
+		console.log('On the form submitted', values);
+
+		const requestData = {
+			fname: values.fname,
+			lname: values.lname,
+			email: values.email,
+			password: values.password,
+		};
+
+		// call API to post submit the form
+		const res = await axios.post(
+			'https://jsonplaceholder.typicode.com/posts',
+			requestData
+		);
+
+		if (res.status === 201) {
+			console.log(res.data.id);
+			toast.success('API call is completted successfully', {
+				position: 'top-right',
+				autoClose: 3000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				progress: undefined,
+				theme: 'light',
+			});
+		}
 	};
 	// const onFormSubmit = (values, { setSubmitting }) => {
 	// 	fetch('https://book-e-sell-node-api.vercel.app/api/user/login', {

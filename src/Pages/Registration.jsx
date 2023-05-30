@@ -18,23 +18,23 @@ import './css/registration.css';
 const Registration1 = () => {
 	// const [name, setName] = useState("Dhruv Patel");
 	// const [email, setEmail] = useState("dp@gmail.com");
-	const [role, setRole] = useState('');
+	const [roleId, setRole] = useState('');
 	// const [open, setOpen] = useState(false);
 	// const [anchorEl, setAnchorEl] = useState(null);
 	const Navigate = useNavigate('');
 
 	const initialValues = {
-		fname: '',
-		lname: '',
-		role:'',
+		firstname: '',
+		lastname: '',
+		roleId:0,
 		email: '',
 		password: '',
 	};
 	const validationSchema = Yup.object().shape({
-		fname: Yup.string()
+		firstname: Yup.string()
 			.min(3, 'First Name Must be 3 characters long...')
 			.required('Please Enter Your First Name'),
-		lname: Yup.string()
+		lastname: Yup.string()
 			.min(3, 'Last Name must be 3 characters long...')
 			.required('Please Enter Your Last Name'),
 		email: Yup.string()
@@ -42,42 +42,45 @@ const Registration1 = () => {
 			.required('please Enter your Email ID'),
 		password: Yup.string()
 			.min(8, 'Password Must be 8 Characters Long...')
+			.matches(/[a-zA-Z]/, 'Password Contains atleast one character')
 			.required('Please Enter Your Password'),
 		cpassword: Yup.string()
 			.required('Please Enter Confirm Password')
 			.oneOf([Yup.ref('password'), null], 'Passwords must match'),
 	});
 
-	const onFormSubmit = async (values) => {
-		console.log('On the form submitted', values);
+	const onFormSubmit = (values, { setSubmitting }) => {
+        const requestData = {
+            firstname: values.fname,
+            lastname: values.lname,
+            email: values.email,
+            password: values.password,
+            roleId:values.roleId
+        }
+        console.log("On Form Submit:", values);
+    
+        setTimeout(() => {
+            alert(JSON.stringify(values, null, 2));
+            setSubmitting(false);
+        }, 400);
+        alert("Form Submitted Successfully....");
+        axios.post('https://book-e-sell-node-api.vercel.app/api/user', requestData).then((res) => {
+            if (res.status == 200) {
+                console.log(res.data.id);
+                toast.success('User Registered Successfully', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "light",
+                });
 
-		const requestData = {
-			fname: values.fname,
-			lname: values.lname,
-			email: values.email,
-			password: values.password,
-		};
+            }
+        });
 
-		// call API to post submit the form
-		const res = await axios.post(
-			'https://jsonplaceholder.typicode.com/posts',
-			requestData
-		);
-
-		if (res.status === 201) {
-			console.log(res.data.id);
-			toast.success('API call is completted successfully', {
-				position: 'top-right',
-				autoClose: 3000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'light',
-			});
-		}
-	};
+    }
 	// const NavigateHome = () => {
 	//     Navigate('/');
 	//     // alert('The login button is clicked...')
@@ -174,7 +177,7 @@ const Registration1 = () => {
 											<TextField
 												type="text"
 												placeholder="FirstName"
-												name="fname"
+												name="firstname"
 												style={{width: '500px'}}
 												onBlur={handleBlur}
 												onChange={handleChange}
@@ -196,7 +199,7 @@ const Registration1 = () => {
 											<TextField
 												type="text"
 												placeholder="LastName"
-												name="lname"
+												name="lastname"
 												style={{width: '500px', paddingLeft: 10}}
 												onBlur={handleBlur}
 												onChange={handleChange}
@@ -243,16 +246,17 @@ const Registration1 = () => {
 										<div>
 											<div className="label">Role</div>
 											<Select
-												name="role"
-												value={role}
+												name="roleId"
+												// value={roleId}
+												id={"roleId"}
+											
 												style={{width: '500px', marginLeft: 10}}
-												onChange={(event) => {
-													setRole(event.target.value);
-												}}
+												onChange={handleChange}
+                                                onBlur={handleBlur}
 											>
-												<MenuItem value=""></MenuItem>
-												<MenuItem value={'Buyer'}>Buyer</MenuItem>
-												<MenuItem value={'Seller'}>Seller</MenuItem>
+												<MenuItem value='1'></MenuItem>
+                                               <MenuItem value='2'>Buyer</MenuItem>
+                                               <MenuItem value='3'>Seller</MenuItem>
 											</Select>
 										</div>
 									</div>
