@@ -14,7 +14,7 @@ const Navbar = () => {
 				direction={['column', 'row']}
 				justifyContent={'space-between'}
 				alignItems={'center'}
-				padding={2}
+				padding={3}
 			>
 				<Stack direction={'row'} justifyContent={'flex-start'}>
 					<Link to="/">
@@ -100,7 +100,7 @@ const Navbar = () => {
 					//   disableElevation
 					//   color="secondary"
 					startIcon={<SearchIcon style={{}} />}
-					style={{bgcolor: '#80BF32', marginLeft: 10}}
+					style={{backgroundColor:'#80BF32', marginLeft: 10}}
 				>
 					Search
 				</Button>

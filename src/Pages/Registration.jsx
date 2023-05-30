@@ -16,12 +16,13 @@ import {toast} from 'react-toastify';
 import './css/registration.css';
 
 const Registration1 = () => {
-	// const [name, setName] = useState("Dhruv Patel");
-	// const [email, setEmail] = useState("dp@gmail.com");
+	const [name, setName] = useState("Dev");
+	const [email, setEmail] = useState("devnkheradiya@gmail.com");
 	const [roleId, setRole] = useState('');
-	// const [open, setOpen] = useState(false);
-	// const [anchorEl, setAnchorEl] = useState(null);
+	const [open, setOpen] = useState(false);
+	const [anchorEl, setAnchorEl] = useState(null);
 	const Navigate = useNavigate('');
+	const selectedRoleId = undefined;
 
 	const initialValues = {
 		firstname: '',
@@ -39,6 +40,7 @@ const Registration1 = () => {
 			.required('Please Enter Your Last Name'),
 		email: Yup.string()
 			.email('Please Enter Valid Email')
+			.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, 'invalid email')
 			.required('please Enter your Email ID'),
 		password: Yup.string()
 			.min(8, 'Password Must be 8 Characters Long...')
@@ -81,21 +83,21 @@ const Registration1 = () => {
         });
 
     }
-	// const NavigateHome = () => {
-	//     Navigate('/');
-	//     // alert('The login button is clicked...')
-	//     console.log("Name:", name);
-	//     console.log("Email:", email);
-	// }
-	// const handleClick = (event) => {
-	//     setAnchorEl(event.currentTarget);
-	//     setOpen(true);
-	// };
+	const NavigateHome = () => {
+	    Navigate('/');
+	    // alert('The login button is clicked...')
+	    // console.log("Name:", name);
+	    // console.log("Email:", email);
+	}
+	const handleClick = (event) => {
+	    setAnchorEl(event.currentTarget);
+	    setOpen(true);
+	};
 
-	// const handleClose = () => {
-	//     setAnchorEl(null);
-	//     setOpen(false);
-	// };
+	const handleClose = () => {
+	    setAnchorEl(null);
+	    setOpen(false);
+	};
 	const breadcrumbs = [
 		<Link
 			color="inherit"
@@ -249,6 +251,7 @@ const Registration1 = () => {
 												name="roleId"
 												// value={roleId}
 												id={"roleId"}
+												value={selectedRoleId || ''}
 											
 												style={{width: '500px', marginLeft: 10}}
 												onChange={handleChange}
