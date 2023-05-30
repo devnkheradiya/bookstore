@@ -7,7 +7,7 @@ const Footer = () => {
 	return (
 		<>
 			<div className="cf">
-				<footer>
+				<footer className='ff'>
 					<Container>
 						<Stack
 							className="cf"

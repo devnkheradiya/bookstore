@@ -14,28 +14,31 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import {toast} from 'react-toastify';
 import './css/registration.css';
+import Footer from '../Components/Footer/Footer';
 
 const Registration1 = () => {
 	const [name, setName] = useState("Dev");
 	const [email, setEmail] = useState("devnkheradiya@gmail.com");
-	const [roleId, setRole] = useState('');
+	const [roleId, setRoleId] = useState(0);
+	const [role, setRole] = useState('');
+    // const[roleId,setRoleId]=useState(0);
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const Navigate = useNavigate('');
 	const selectedRoleId = undefined;
 
 	const initialValues = {
-		firstname: '',
-		lastname: '',
+		firstName: '',
+		lastName: '',
 		roleId:0,
 		email: '',
 		password: '',
 	};
 	const validationSchema = Yup.object().shape({
-		firstname: Yup.string()
+		firstName: Yup.string()
 			.min(3, 'First Name Must be 3 characters long...')
 			.required('Please Enter Your First Name'),
-		lastname: Yup.string()
+		lastName: Yup.string()
 			.min(3, 'Last Name must be 3 characters long...')
 			.required('Please Enter Your Last Name'),
 		email: Yup.string()
@@ -53,8 +56,8 @@ const Registration1 = () => {
 
 	const onFormSubmit = (values, { setSubmitting }) => {
         const requestData = {
-            firstname: values.fname,
-            lastname: values.lname,
+            firstName: values.firstName,
+            lastName: values.lastName,
             email: values.email,
             password: values.password,
             roleId:values.roleId
@@ -178,8 +181,8 @@ const Registration1 = () => {
 											<div className="label1">First Name</div>
 											<TextField
 												type="text"
-												placeholder="FirstName"
-												name="firstname"
+												placeholder="firstName"
+												name="firstName"
 												style={{width: '500px'}}
 												onBlur={handleBlur}
 												onChange={handleChange}
@@ -200,8 +203,8 @@ const Registration1 = () => {
 											<div className="label">Last Name </div>
 											<TextField
 												type="text"
-												placeholder="LastName"
-												name="lastname"
+												placeholder="lastName"
+												name="lastName"
 												style={{width: '500px', paddingLeft: 10}}
 												onBlur={handleBlur}
 												onChange={handleChange}
@@ -334,6 +337,7 @@ const Registration1 = () => {
 					</Formik>
 				</div>
 			</div>
+			<Footer/>
 		</>
 	);
 };

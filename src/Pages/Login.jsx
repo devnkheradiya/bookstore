@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import './css/login.css';
-
+import authService from '../service/authService';
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -43,36 +43,16 @@ const Login = () => {
 	// 	}, 400);
 	// 	alert('Form Submitted Successfully');
 	// };
-	const onFormSubmit = async (values) => {
-		console.log('On the form submitted', values);
-
-		const requestData = {
-			fname: values.fname,
-			lname: values.lname,
-			email: values.email,
-			password: values.password,
-		};
-
-		// call API to post submit the form
-		const res = await axios.post(
-			'https://jsonplaceholder.typicode.com/posts',
-			requestData
-		);
-
-		if (res.status === 201) {
-			console.log(res.data.id);
-			toast.success('API call is completted successfully', {
-				position: 'top-right',
-				autoClose: 3000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				progress: undefined,
-				theme: 'light',
-			});
-		}
-	};
+	const onFormSubmit = (values, { setSubmitting }) => {
+		authService.login(values).then((res)=>{
+		  delete res._id;
+		  delete res._v;
+		//   authContext.setUser(res);
+		  Navigate('/');
+		  toast.success("Successfully Logged in...")
+		});
+		// Navigate('/');
+	  }
 	// const onFormSubmit = (values, { setSubmitting }) => {
 	// 	fetch('https://book-e-sell-node-api.vercel.app/api/user/login', {
 	// 	  method: 'POST',

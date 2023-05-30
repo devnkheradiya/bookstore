@@ -9,6 +9,7 @@ import logo from './logo.svg'
 
 const Navbar = () => {
 	return (
+		<>
 		<Container>
 			<Stack
 				direction={['column', 'row']}
@@ -106,6 +107,8 @@ const Navbar = () => {
 				</Button>
 			</Stack>
 		</Container>
+
+		</>
 	);
 };
 
