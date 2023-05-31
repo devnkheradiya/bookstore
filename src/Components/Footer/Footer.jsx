@@ -16,7 +16,7 @@ const Footer = () => {
 							justifyContent={'center'}
 							style={{
 								height: 150,
-								backgroundColor: '#F4F4F4',
+								backgroundColor: '#fff',
 							}}
 							spacing={1}
 						>

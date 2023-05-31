@@ -15,71 +15,91 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import './css/login.css';
-import authService from '../service/authService';
+import { useUserContext } from "./UserContext";
+
+
+
+// import authService from '../service/authService';
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
+	const [user, setUser] = useState([]);
+	const { setUserName } = useUserContext();
+
+	// useEffect(() => {
+	// 	axios.get("https://book-e-sell-node-api.vercel.app/api/user/login").then((res) => {
+	// 	  console.log("User detail: ", res.data);
+	// 	  setUser(res.data);
+	// 	});
+	//   }, []);
+
 	const Navigate = useNavigate('');
 	const initialValues = {
 		email: '',
 		password: '',
 	};
+	
 
 	const validationSchema = Yup.object().shape({
 		email: Yup.string()
 			.email('Please Enter Valid Email')
-			.required('Please Enter Email'),
+			.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, 'invalid email')
+			.required('Please Enter Your Email ID'),
 		password: Yup.string()
-			.min(8, 'Password Must be a 8 Characters Long')
-			.required('Please Enter Password'),
+			.min(8, 'Password Must be 8 Characters Long')
+			.max(16, 'Password is too long')
+			.matches(/[a-zA-Z]/, 'Password Contains atleast one character')
+			.required('Please Enter Your Password'),
 	});
-	// const onFormSubmit = (values, {setSubmitting}) => {
-	// 	console.log('On Form Submit:', values);
-	// 	setTimeout(() => {
-	// 		alert(JSON.stringify(values, null, 2));
-	// 		setSubmitting(false);
-	// 	}, 400);
-	// 	alert('Form Submitted Successfully');
-	// };
-	const onFormSubmit = (values, { setSubmitting }) => {
-		authService.login(values).then((res)=>{
-		  delete res._id;
-		  delete res._v;
-		//   authContext.setUser(res);
-		  Navigate('/');
-		  toast.success("Successfully Logged in...")
-		});
-		// Navigate('/');
-	  }
-	// const onFormSubmit = (values, { setSubmitting }) => {
-	// 	fetch('https://book-e-sell-node-api.vercel.app/api/user/login', {
-	// 	  method: 'POST',
-	// 	  headers: {
-	// 		'Content-Type': 'application/json',
-	// 	  },
-	// 	  body: JSON.stringify(values),
-	// 	})
-	// 	  .then((response) => response.json())
-	// 	  .then((data) => {
-	// 		
-	// 		console.log(data);
-	// 		if (data.success) {
-	// 		  Navigate('/');
-	// 		}
-	// 	  })
-	// 	  .catch((error) => {
-	// 		console.error(error);
-	// 	  })
-	// 	  .finally(() => {
-	// 		setSubmitting(false);
-	// 	  });
-	//   };
-	  
+
+	const onFormSubmit = async (values) => {
+
+        const  initialValues = {
+            email: values.email,
+            password : values.password
+        }
+		alert(" Entered email id: " + values.email + " Entered password: " + values.password);
+        try {
+            axios.post('https://book-e-sell-node-api.vercel.app/api/user/login', initialValues).then((res) => 
+			{
+            if (res.status == 200) 
+			{
+                console.log(res.data.id);
+                toast.success('User login Successfully', 
+				{
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    theme: "light",
+                });
+
+            }
+			Navigate("/");
+			setUserName(values.name);
+           });   
+		}
+        
+        catch (error) {
+            toast.error('Please enter valid email or password', {
+				position: "top-right",
+				autoClose: 5000,
+				hideProgressBar: false,
+				closeOnClick: true,
+				pauseOnHover: true,
+				draggable: true,
+				theme: "light",
+            });
+        }
+    }
+ 
+
 	const NavigateHome = () => {
 		Navigate('/');
-		// alert('The login button is clicked...')
 		console.log('Email:', email);
 		console.log('Password', password);
 	};
@@ -101,7 +121,6 @@ const Login = () => {
 				textDecoration: 'none',
 				fontSize: 18,
 			}}
-			// onClick={handleClick}
 		>
 			Home
 		</Link>,
@@ -163,7 +182,7 @@ const Login = () => {
 						<Button
 							variant="contained"
 							type="submit"
-							className="btn"
+							className="btn1"
 							onClick={() => Navigate('/Registration')}
 						>
 							Create an Account
@@ -198,7 +217,7 @@ const Login = () => {
 									<form onSubmit={handleSubmit}>
 										<div
 											style={{
-												display: 'flex',
+												display: 'inherit',
 												flexDirection: 'column',
 												marginBottom: 5,
 												rowGap: 10,

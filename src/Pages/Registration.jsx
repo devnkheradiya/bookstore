@@ -25,7 +25,6 @@ const Registration1 = () => {
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const Navigate = useNavigate('');
-	const selectedRoleId = undefined;
 
 	const initialValues = {
 		firstName: '',
@@ -36,22 +35,27 @@ const Registration1 = () => {
 	};
 	const validationSchema = Yup.object().shape({
 		firstName: Yup.string()
-			.min(3, 'First Name Must be 3 characters long...')
+			.min(3, 'First Name Must be 3 characters long')
+			.max(10, 'First Name is too long')
 			.required('Please Enter Your First Name'),
 		lastName: Yup.string()
-			.min(3, 'Last Name must be 3 characters long...')
+			.min(3, 'Last Name must be 3 characters long')
+			.max(10, 'Last Name is too long')
 			.required('Please Enter Your Last Name'),
 		email: Yup.string()
 			.email('Please Enter Valid Email')
 			.matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, 'invalid email')
-			.required('please Enter your Email ID'),
+			.required('Please Enter your Email ID'),
 		password: Yup.string()
-			.min(8, 'Password Must be 8 Characters Long...')
+			.min(8, 'Password Must be 8 Characters Long')
+			.max(16, 'Password is too long')
 			.matches(/[a-zA-Z]/, 'Password Contains atleast one character')
 			.required('Please Enter Your Password'),
 		cpassword: Yup.string()
 			.required('Please Enter Confirm Password')
 			.oneOf([Yup.ref('password'), null], 'Passwords must match'),
+		roleId: Yup.string()
+			.required('Please Enter Confirm Password'),
 	});
 
 	const onFormSubmit = (values, { setSubmitting }) => {
@@ -63,12 +67,7 @@ const Registration1 = () => {
             roleId:values.roleId
         }
         console.log("On Form Submit:", values);
-    
-        setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-        }, 400);
-        alert("Form Submitted Successfully....");
+
         axios.post('https://book-e-sell-node-api.vercel.app/api/user', requestData).then((res) => {
             if (res.status == 200) {
                 console.log(res.data.id);
@@ -254,13 +253,11 @@ const Registration1 = () => {
 												name="roleId"
 												// value={roleId}
 												id={"roleId"}
-												value={selectedRoleId || ''}
-											
 												style={{width: '500px', marginLeft: 10}}
 												onChange={handleChange}
                                                 onBlur={handleBlur}
 											>
-												<MenuItem value='1'></MenuItem>
+											   <MenuItem value='1'></MenuItem>
                                                <MenuItem value='2'>Buyer</MenuItem>
                                                <MenuItem value='3'>Seller</MenuItem>
 											</Select>
@@ -337,7 +334,8 @@ const Registration1 = () => {
 					</Formik>
 				</div>
 			</div>
-			<Footer/>
+			
+			
 		</>
 	);
 };

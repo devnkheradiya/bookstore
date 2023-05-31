@@ -6,8 +6,10 @@ import {Button, Container, Stack, Typography} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import './header.css';
 import logo from './logo.svg'
+import { useUserContext } from 'react';
 
 const Navbar = () => {
+	const { Logout } = useUserContext();
 	return (
 		<>
 		<Container>
@@ -35,6 +37,9 @@ const Navbar = () => {
 					<Link to="/Login" style={{textDecoration: 'none'}}>
 						<Typography variant="body1" color="#f14d54">
 							Login
+						</Typography>
+						<Typography variant="body1" color="#f14d54">
+							{Logout}
 						</Typography>
 					</Link>
 					<Typography variant="body1" color="#414141">
