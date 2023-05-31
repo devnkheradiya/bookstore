@@ -6,7 +6,7 @@ import {Button, Container, Stack, Typography} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import './header.css';
 import logo from './logo.svg'
-import { useUserContext } from 'react';
+import { useUserContext } from "../Header/UserContext";
 
 const Navbar = () => {
 	const { Logout } = useUserContext();
