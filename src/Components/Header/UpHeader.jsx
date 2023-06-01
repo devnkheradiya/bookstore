@@ -3,11 +3,11 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Button } from '@mui/material';
-import LoginProvider  from './LoginProvider';
+import loginContext from '../Header/LoginContext';
 import { toast } from 'react-toastify';
-import './header.css';
-const UpNav = () => {
-    const isLogin = useContext(LoginProvider);
+// import '../css/header.css';
+const UpdateNav = () => {
+    const isLogin = useContext(loginContext);
     const LinkStyle = {
         textDecoration: 'none',
         margin: '15px',
@@ -35,11 +35,11 @@ const UpNav = () => {
     if (!isLogin.login) {
         return (
             <>
-                 {/* <div >
-                    <Link to='/login' style={LinkStyle}>Login</Link>
-                    <span className='pipe'></span>
-                    <Link to='/register' style={LinkStyle} >Register</Link>
-                </div>   */}
+                 <div >
+                    <Link to='/Login' style={LinkStyle}>Login</Link>
+                    <span className='pipe'>|</span>
+                    <Link to='/Registration' style={LinkStyle} >Register</Link>
+                </div>  
             </>
         );
         
@@ -48,13 +48,13 @@ const UpNav = () => {
         return(
         <>
                 <div >
-                    <Link to='/product' style={LinkStyle}>View Book</Link>
+                    <Link to='/' style={LinkStyle}>View Book</Link>
                     <span className='pipe'></span>
-                    <Link to='/edit' style={LinkStyle} >Edit Book</Link>
+                    <Link to='/' style={LinkStyle} >Edit Book</Link>
                     <span className='pipe'></span>
-                    <Link to='/login' style={LinkStyle}>Login</Link>
+                    <Link to='/' style={LinkStyle}>Login</Link>
                     <span className='pipe'></span>
-                    <Link to='/register' style={LinkStyle} >Register</Link>
+                    <Link to='/' style={LinkStyle} >Register</Link>
                     
                 </div>
                 <Button style={logoutbtn} onClick={logoutEvent}>Logout</Button>
@@ -64,4 +64,4 @@ const UpNav = () => {
             
     }
 }
-export default UpNav;
+export default UpdateNav;

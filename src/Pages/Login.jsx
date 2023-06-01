@@ -36,7 +36,7 @@ const Login = () => {
 	// 	  setUser(res.data);
 	// 	});
 	//   }, []);
-	const islogin =  useContext(LoginProvider);
+	const isLogin =  useContext(LoginProvider);
 	const Navigate = useNavigate('');
 	const initialValues = {
 		email: '',
@@ -57,20 +57,14 @@ const Login = () => {
 	});
 
 	const onFormSubmit = async (values) => {
-
-        const  initialValues = {
+		const  initialValues = {
             email: values.email,
             password : values.password
         }
-		
-		alert(" Entered email id: " + values.email + " Entered password: " + values.password);
-        try {
-            axios.post('https://book-e-sell-node-api.vercel.app/api/user/login', initialValues).then((res) => 
-			{
-            if (res.status == 200) 
-			{
-                console.log(res.data.id);
-                toast.success('User login Successfully', 
+		const res=await axios.post('https://book-e-sell-node-api.vercel.app/api/user/login',initialValues);
+		if(res.status===200){
+		  console.log(res.data.id);
+		  toast.success('User login Successfully', 
 				{
                     position: "top-right",
                     autoClose: 5000,
@@ -80,26 +74,13 @@ const Login = () => {
                     draggable: true,
                     theme: "light",
                 });
-
-            }
-			islogin.setLogin(true);
-			Navigate("/");
-		
-           });   
 		}
-        
-        catch (error) {
-            toast.error('Please enter valid email or password', {
-				position: "top-right",
-				autoClose: 5000,
-				hideProgressBar: false,
-				closeOnClick: true,
-				pauseOnHover: true,
-				draggable: true,
-				theme: "light",
-            });
-        }
-    }
+		Navigate('/');
+		isLogin.setLogin(true);
+		};
+	
+
+
  
 
 	const NavigateHome = () => {
