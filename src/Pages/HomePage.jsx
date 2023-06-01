@@ -4,7 +4,7 @@ import Avatar from '@mui/material/Avatar';
 import {useEffect, useState} from "react";
 import {Navigate} from 'react-router-dom';
 import {useNavigate} from "react-router-dom";
-import { useUserContext } from "../Components/Header/UserContext";
+
 
 export const HomePage = () => {
     const Navigate = useNavigate();

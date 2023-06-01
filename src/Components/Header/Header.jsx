@@ -6,10 +6,24 @@ import {Button, Container, Stack, Typography} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import './header.css';
 import logo from './logo.svg'
-import { useUserContext } from "../Header/UserContext";
+
+
+import { useContext } from 'react';
+import { AuthContext } from './AuthContext';
+
+
+
 
 const Navbar = () => {
-	const { Logout } = useUserContext();
+	const { isLoggedIn, login, logout } = useContext(AuthContext);
+
+  const handleLogin = () => {
+    login();
+  };
+
+  const handleLogout = () => {
+    logout();
+  };
 	return (
 		<>
 		<Container>
@@ -38,9 +52,11 @@ const Navbar = () => {
 						<Typography variant="body1" color="#f14d54">
 							Login
 						</Typography>
-						<Typography variant="body1" color="#f14d54">
-							{Logout}
-						</Typography>
+						{isLoggedIn ? (
+        <button onClick={handleLogout}>Logout</button>
+      ) : (
+        <button onClick={handleLogin}>Login</button>
+      )}
 					</Link>
 					<Typography variant="body1" color="#414141">
 						|
