@@ -19,16 +19,16 @@ import Navbar from './Components/Header/Header'
 import Footer from './Components/Footer/Footer';
 // import LoginProvider from './Components/Header/LoginProvider';
 import LoginProvider from './Components/Header/LoginProvider';
+import EditBook from './Pages/Editbook';
+
 
 const App = () => { 
     return ( 
     <> 
-    <ThemeProvider theme={theme}>
+    {/* <ThemeProvider theme={theme}> */}
     <LoginProvider>
         <ToastContainer/>
-       
         <BrowserRouter>
-
         <Navbar/>
             {/* <div className='nav' style={{
                 display:'flex',
@@ -83,6 +83,7 @@ const App = () => {
                 <Route path='/Registration' element={< Registration />}></Route>
                 <Route path='/Login' element={< Login />}></Route>
                 <Route path='*' element={< NotFound />}></Route>
+                <Route path='/Editbook' element={< EditBook/>}></Route>
 
             </Routes>
             <Footer/>
@@ -90,7 +91,7 @@ const App = () => {
         </BrowserRouter>
         </LoginProvider>
 
-    </ThemeProvider> 
+    {/* </ThemeProvider>  */}
     </>
   );
 };

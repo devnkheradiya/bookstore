@@ -1,6 +1,6 @@
 import React from 'react';
 // import '../css/header.css';
-import '../css/product.css';
+import './css/product.css';
 import bookService from '../service/book.service';
 import { Typography } from "@mui/material";
 import { useState } from 'react';
