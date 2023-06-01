@@ -1,39 +1,16 @@
-import { useState, useContext } from "react";
+import { createContext, useState, useContext } from "react";
 
-// export const UserContext = createContext("");
 
-// export const AppWrapper = ({ children }) => {
-//   const [userName, setUserName] = useState("Test");
+export const logContext = createContext("");
 
-//   return (
-//     <div>
-//       <UserContext.Provider value={{ userName, setUserName }}>{children}</UserContext.Provider>
-//     </div>
-//   );
-// };
-import React from 'react';
-
-const AuthContext = createContext();
-
-const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-  const login = () => {
-    setIsLoggedIn(true);
-  };
-
-  const logout = () => {
-    setIsLoggedIn(false);
-  };
+export const AppWrapper = ({ children }) => {
+  const [Logout, setbutton] = useState("Test");
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
-      {children}
-    </AuthContext.Provider>
+    <div>
+      <logContext.Provider value={{ Logout, setbutton }}>{children}</logContext.Provider>
+    </div>
   );
 };
 
-export { AuthContext, AuthProvider };
-
-
-// export const useUserContext = () => useContext(UserContext);
+export const AuthContext = () => useContext(logContext);

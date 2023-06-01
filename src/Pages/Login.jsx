@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import './css/login.css';
-import { useUserContext } from "../Components/Header/UserContext";
+// import { useUserContext } from "../Components/Header/UserContext";
 
 
 
@@ -25,8 +25,8 @@ const Login = () => {
 	const [password, setPassword] = useState('');
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
-	const [user, setUser] = useState([]);
-	const { setUserName } = useUserContext();
+	// const [user, setUser] = useState([]);
+	// const { setUserName } = useUserContext();
 
 	// useEffect(() => {
 	// 	axios.get("https://book-e-sell-node-api.vercel.app/api/user/login").then((res) => {
@@ -80,7 +80,7 @@ const Login = () => {
 
             }
 			Navigate("/");
-			setUserName(values.name);
+		
            });   
 		}
         

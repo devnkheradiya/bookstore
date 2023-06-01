@@ -17,7 +17,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from './Components/Header/Header'
 import Footer from './Components/Footer/Footer';
-import { AppWrapper } from "./Components/Header/UserContext";
+import {AuthContext} from "./Components/Header/AuthContext";
 
 const App = () => { 
     return ( 
@@ -27,7 +27,7 @@ const App = () => {
         <ToastContainer/>
        
         <BrowserRouter>
-        <AppWrapper>
+        <AuthContext>
         <Navbar/>
             {/* <div className='nav' style={{
                 display:'flex',
@@ -85,7 +85,7 @@ const App = () => {
 
             </Routes>
             <Footer/>
-            </AppWrapper>
+            </AuthContext>
         </BrowserRouter>
       
 

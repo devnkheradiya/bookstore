@@ -7,23 +7,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import './header.css';
 import logo from './logo.svg'
 
-
-import { useContext } from 'react';
 import { AuthContext } from './AuthContext';
 
 
 
 
+
 const Navbar = () => {
-	const { isLoggedIn, login, logout } = useContext(AuthContext);
-
-  const handleLogin = () => {
-    login();
-  };
-
-  const handleLogout = () => {
-    logout();
-  };
+	const { Logout } = AuthContext();
 	return (
 		<>
 		<Container>
@@ -50,13 +41,8 @@ const Navbar = () => {
 				>
 					<Link to="/Login" style={{textDecoration: 'none'}}>
 						<Typography variant="body1" color="#f14d54">
-							Login
+							Login {Logout}
 						</Typography>
-						{isLoggedIn ? (
-        <button onClick={handleLogout}>Logout</button>
-      ) : (
-        <button onClick={handleLogin}>Login</button>
-      )}
 					</Link>
 					<Typography variant="body1" color="#414141">
 						|
