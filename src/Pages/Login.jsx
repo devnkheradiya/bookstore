@@ -16,7 +16,9 @@ import Link from '@mui/material/Link';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import './css/login.css';
 // import { useUserContext } from "../Components/Header/UserContext";
-
+import { useContext } from 'react';
+// import { loginContext } from '../Components/Header/AuthContext';
+import LoginProvider from '../Components/Header/LoginProvider';
 
 
 // import authService from '../service/authService';
@@ -34,7 +36,7 @@ const Login = () => {
 	// 	  setUser(res.data);
 	// 	});
 	//   }, []);
-
+	const islogin =  useContext(LoginProvider);
 	const Navigate = useNavigate('');
 	const initialValues = {
 		email: '',
@@ -60,6 +62,7 @@ const Login = () => {
             email: values.email,
             password : values.password
         }
+		
 		alert(" Entered email id: " + values.email + " Entered password: " + values.password);
         try {
             axios.post('https://book-e-sell-node-api.vercel.app/api/user/login', initialValues).then((res) => 
@@ -79,6 +82,7 @@ const Login = () => {
                 });
 
             }
+			islogin.setLogin(true);
 			Navigate("/");
 		
            });   

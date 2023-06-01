@@ -7,14 +7,37 @@ import SearchIcon from '@mui/icons-material/Search';
 import './header.css';
 import logo from './logo.svg'
 
-import { AuthContext } from './AuthContext';
+// import LoginProvider from './LoginProvider';
 
+// import UpNav from './UpHeader';
 
 
 
 
 const Navbar = () => {
-	const { Logout } = AuthContext();
+	// const open = false;
+
+    // const LinkStyle = {
+    //     textDecoration: 'none',
+    //     margin: '15px',
+    //     color: '#f14d54'
+    // }
+    // const cart = {
+    //     display: 'flex',
+    //     justifyContent: 'space-around',
+    //     alignItems: 'center',
+    //     textDecoration: 'none',
+    //     border: '1px solid #ccc',
+    //     borderRadius: '4px',
+    //     color: 'black',
+    //     width: '100.48px',
+    //     height: '40px'
+    // }
+
+    // //for menu
+    // const openMenu = () => {
+    //     document.body.classList.toggle('Open-menu');
+    // }
 	return (
 		<>
 		<Container>
@@ -39,9 +62,10 @@ const Navbar = () => {
 					spacing={2}
 					padding={[2, 0]}
 				>
+					{/* <UpNav/> */}
 					<Link to="/Login" style={{textDecoration: 'none'}}>
 						<Typography variant="body1" color="#f14d54">
-							Login {Logout}
+							Login 
 						</Typography>
 					</Link>
 					<Typography variant="body1" color="#414141">
