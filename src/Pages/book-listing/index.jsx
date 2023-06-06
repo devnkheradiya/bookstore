@@ -74,16 +74,16 @@ const BookList = () => {
     return [];
   }, [categories, bookResponse]);
 
-  // const addToCart = (book) => {
-  //   Shared.addToCart(book, authContext.user.id).then((res) => {
-  //     if (res.error) {
-  //       toast.error(res.message);
-  //     } else {
-  //       toast.success(res.message);
-  //       cartContext.updateCart();
-  //     }
-  //   });
-  // };
+  const addToCart = (book) => {
+    Shared.addToCart(book, authContext.user.id).then((res) => {
+      if (res.error) {
+        toast.error(res.message);
+      } else {
+        toast.success(res.message);
+        cartContext.updateCart();
+      }
+    });
+  };
 
   const sortBooks = (e) => {
     setSortBy(e.target.value);
@@ -168,7 +168,7 @@ const BookList = () => {
                     <button className="MuiButtonBase-root MuiButton-root MuiButton-contained btn pink-btn MuiButton-containedPrimary MuiButton-disableElevation">
                       <span
                         className="MuiButton-label"
-                        // onClick={() => addToCart(book)}
+                        onClick={() => addToCart(book)}
                       >
                         ADD TO CART
                       </span>
@@ -180,15 +180,7 @@ const BookList = () => {
             ))}
           </div>
         </div>
-        {/* <div className="pagination-wrapper">
-          <Pagination
-            count={bookResponse.totalPages}
-            page={filters.pageIndex}
-            onChange={(e, newPage) => {
-              setFilters({ ...filters, pageIndex: newPage });
-            }}
-          />
-          </div> */}
+
       </div>
     </div>
   );

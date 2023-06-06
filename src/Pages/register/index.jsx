@@ -48,9 +48,11 @@ const Register = () => {
   const validationSchema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email address format")
+      .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, 'invalid email')
       .required("Email is required"),
     password: Yup.string()
       .min(5, "Password must be 5 characters at minimum")
+			.max(16, 'Password is too long')
       .required("Password is required"),
     confirmPassword: Yup.string()
       .oneOf(
@@ -58,8 +60,14 @@ const Register = () => {
         "Password and Confirm Password must be match."
       )
       .required("Confirm Password is required."),
-    firstName: Yup.string().required("First name is required"),
-    lastName: Yup.string().required("Last name is required"),
+    firstName: Yup.string()
+    .required("First name is required")
+    .min(3, 'First Name Must be 3 characters long')
+    .max(10, 'First Name is too long'),
+    lastName: Yup.string()
+    .required("Last name is required")
+    .min(3, 'Last Name must be 3 characters long')
+		.max(10, 'Last Name is too long'),
     roleId: Yup.number().required("Role is required"),
   });
 
