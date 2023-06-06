@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import React from "react";
 import cartService from "../service/cart.service";
-// import { useAuthContext } from "./auth";
+import { useAuthContext } from "./auth";
 
 const initialState = {
   cartData: [],
